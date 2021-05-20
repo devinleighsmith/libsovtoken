@@ -60,6 +60,7 @@ do
 
     echo "LIBINDY_DIR=${LIBINDY_DIR}"
     lipo -thin $etarget $LIBINDY/libindy.a -o $LIBINDY_DIR/libindy.a
+    rustup show
     cargo lipo --release --verbose --targets="${target}"
     mv ./target/$target/release/libsovtoken.a ./target/$target/libsovtoken-unstripped.a
     strip -S -x -o ./target/$target/libsovtoken.a -r ./target/$target/libsovtoken-unstripped.a

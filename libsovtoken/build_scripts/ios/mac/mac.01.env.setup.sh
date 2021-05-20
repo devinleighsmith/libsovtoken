@@ -49,6 +49,7 @@ if [[ $RUSTUP_VERSION =~ ^'rustup ' ]]; then
     rustup target add aarch64-apple-ios x86_64-apple-ios
     rustup update
     rustup default 1.46.0
+    rustup show
 
     RUST_TARGETS=$(rustc --print target-list|grep -i ios)
     if [ "RUST_TARGETS" = "" ]; then
