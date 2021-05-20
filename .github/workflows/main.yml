@@ -1,0 +1,47 @@
+name: indy-sdk-build
+
+on:
+  push:
+    branches:
+      - master
+      - stable
+  pull_request:
+    branches:
+      - "**"
+
+env:
+  RUST_VER: 1.46.0
+
+jobs:
+  ####################################################
+  # INITIALIZATION
+  ####################################################
+  workflow-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ env.RUST_VER }}
+  # IOS WRAPPER
+  ####################################################
+
+  build-libsovtoken-ios:
+    runs-on: macos-10.15
+    needs:
+      - workflow-setup
+    env:
+      PUBLISH_VERSION: ${{ needs.workflow-setup.outputs.PUBLISH_VERSION }}
+      RUST_VER: ${{ needs.workflow-setup.outputs.RUST_VER }}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: Build libsovtoken
+        run: |
+          pushd libsovtoken/build_scripts/ios/mac
+          ./mac.01.env.setup.sh
+          ./mac.14.libsovtoken.build.sh
+          popd
