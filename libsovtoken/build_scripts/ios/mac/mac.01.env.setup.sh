@@ -47,8 +47,8 @@ if [[ $RUSTUP_VERSION =~ ^'rustup ' ]]; then
     rustup target remove aarch64-linux-android armv7-linux-androideabi arm-linux-androideabi i686-linux-android x86_64-linux-android 
     rustup target remove --toolchain stable i386-apple-ios armv7s-apple-ios armv7-apple-ios
     rustup component add rls-preview rust-analysis rust-src
-    rustup target add aarch64-apple-ios x86_64-apple-ios
     rustup default 1.46.0
+    rustup target add aarch64-apple-ios x86_64-apple-ios
     rustup show
 
     RUST_TARGETS=$(rustc --print target-list|grep -i ios)
